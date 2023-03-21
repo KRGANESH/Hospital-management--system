@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Search</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/back-to-top-scroll-1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/back-to-top-scroll.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Bold-BS4-Animated-Back-To-Top.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cards.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="{% static 'css/Login-Form-Dark.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Pretty-Registration-Form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Sidebar-Menu-1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Sidebar-Menu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--<link rel = "stylesheet"
+         href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-primary float-none">
+        <div class="container-fluid"><img src="{% static 'img/mainicon.png' %}" width="30px" height="30px" alt="10px"><a
+                class="navbar-brand text-center" href="#" style="margin: 0px 0px;">&nbsp;&nbsp;AIM TO HEAL</a>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav text-light ml-auto">
+                    <li class="nav-item" role="presentation"></li>
+                    <li class="nav-item" role="presentation"></li>
+                    <li class="nav-item" role="presentation"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li> <a href="{% url 'home' %}" style="color: white;">Home</a></li>
+                <li> <a href="{% url 'profile' %}">Profile</a></li>
+                <li> <a href='{% url 'viewappointments' %}'>View Appointments</a></li>
+                <li> <a href="{% url 'search' %}">Search</a></li>
+                <li> <a href="{% url 'logout' %}">Logout</a></li>
+        </div>
+        <div class="page-content-wrapper">
+            <div class="container-fluid"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i
+                        class="fa fa-bars"></i></a>
+                        <h2 class="text-center">PATIENT RECORD</h2>
+                        <form method="get">
+                            <tr><td>
+                                <h5>Enter patient ID:</h5>
+                            </td><td><input type="text" name="q" value="{{ search_query }}" class="text-input">
+                            <input type="submit" value="Search" class="submit-button">
+                        </td>
+                        </tr>
+                          </form>
+                         
+                          <div class="text-center" role="tablist" id="accordion-2">
+                              {% for j in search_result %}
+                             <ul class = "collapsible popout text-center" data-collapsible = "accordion">
+                                  <li class="card">
+                                      <div class = "card-header collapsible-header">
+          
+                                          <h5 style="color:blue;"><a><i class="fa fa-calendar-check-o"></i>{{j.patient_name}} have appointment with {{j.doctor_name}} on {{j.appointment_date}}</a></h5>
+                                      </div>
+                                      <div class = "card-body collapsible-body">
+                                          <table align="center" class="card-text" style="font-size: 19px;">
+                                              <tr>
+                                                  <td>Doctor Name:</td>
+                                                  <td>{{j.doctor_name}}</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>Patient Name:</td>
+                                                  <td>{{j.patient_name}}</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>Appointment Date:</td>
+                                                  <td>{{j.appointment_date}}</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>Appointment Time:</td>
+                                                  <td>{{j.appointment_time}}</td>
+                                              </tr>
+                                              
+                                              <tr>
+                                                  <td>Prescription:</td>
+                                                  <td>{{j.prescription}}</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>Lab Test:</td>
+                                                  <td>{{j.test_name}}</td>
+                                              </tr>
+                                              <tr>
+                                                <td>Lab Test:</td>
+                                                <td> {% if j.report %}
+                                                    <a href="{{ j.report.url }}" target="_blank">View Report</a>
+                                                  {% else %}
+                                                    No report available
+                                                  {% endif %}
+                                                </td>
+                                            </tr>
+                                          </table>
+                                      </div>
+                                  </li>
+                              </ul>
+                              {% endfor %} 
+                      </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery.min.' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/back-to-top-scroll.js' %}"></script>
+    <script src="{% static 'js/Bold-BS4-Animated-Back-To-Top.js' %}"></script>
+    <script src="{% static 'js/bs-init.js' %}"></script>
+    <script src="{% static 'js/Sidebar-Menu.js' %}"></script>
+</body>
+</html>
+<script>
+    // Set the value of the select element to null
+    document.getElementById("test_value").value ="";
+    document.isnull= True;
+  </script>
+  <style>
+    .submit-button {
+      display: inline-block;
+      background-color: blue; /* Green */
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      margin: 4px 2px;
+      -webkit-transition-duration: 0.4s; /* Safari */
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+    
+    .submit-button:hover {
+      background-color:violet;
+    }
+    .text-input {
+  width: 25%;
+  padding: 10px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.text-input:focus {
+  border: 2px solid #555;
+}
+    </style>
+
